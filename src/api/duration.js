@@ -11,19 +11,10 @@ export default class EventDuration {
         this.displayRange = displayRange;
         this.startsBefore = event.start.isBefore(displayRange.start);
         this.endsAfter = event.end.isAfter(displayRange.end);
-        if (this.layout.isDisplayingAsMonth) {
-            this.range = moment.range(
-                moment.max(displayRange.start,
-                    event.start.startOf('day')),
-                moment.min(displayRange.end,
-                    event.end.endOf('day')),
-            );
-        } else {
-            this.range = moment.range(
-                moment.max(displayRange.start, event.start),
-                moment.min(displayRange.end, event.end),
-            );
-        }
+        this.range = moment.range(
+            moment.max(displayRange.start, event.start),
+            moment.min(displayRange.end, event.end),
+        );
         this.span = Math.max(
             1,
             Math.ceil(this.range.end.diff(this.range.start, 'day', true)),
